@@ -12,7 +12,7 @@ class BookItem extends React.Component {
 
                 <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${coverImg})` }}></div>
                 <div className="book-shelf-changer" >
-                    <select  onChange={(e) => {this.props.onShelf(this.props.book,e.target.value)}}
+                    <select  onChange={(e) => {this.props.onShelfChange(this.props.book,e.target.value)}}
                              defaultValue={typeof(this.props.book.shelf) != 'undefined' ? this.props.book.shelf : 'none'}>
                         <option value="none" disabled>
                             Move to...

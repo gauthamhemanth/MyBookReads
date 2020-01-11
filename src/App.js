@@ -8,11 +8,15 @@ import { Route } from 'react-router-dom';
 
 
 class  App extends React.Component {
-     state = {
-          books: []
-      }
+    constructor(){
+        super();
+        this.state = {
+            books: []
+        }
+        this.onShelfChange = this.onShelfChange.bind(this);
+    }
 
-    onShelf=(book, val) =>{
+    onShelfChange=(book, val) =>{
         let newBook = book;
         BooksAPI.update(newBook,val).then(response =>{
             newBook.shelf = val;
@@ -20,7 +24,13 @@ class  App extends React.Component {
                 books : prevState.books.filter(book => book.id !== newBook.id).concat(newBook)
 
             })
+                if(window.location.pathname === '/search'){
+                    console.log('you are currently in '+window.location.pathname);
+                }else{
+                    window.location.reload(false);
+                }
         });
+      //
     }
 
     render() {
@@ -35,15 +45,15 @@ class  App extends React.Component {
                          </div>
 
                          <h3>Currently Reading </h3>
-                         <BookDeck onShelf = {this.onShelf} books={this.state.books.filter(
+                         <BookDeck onShelfChange = {this.onShelfChange} books={this.state.books.filter(
                              (book) => book.shelf === "currentlyReading"
                          )}/>
                          <h3>Want to Read</h3>
-                         <BookDeck onShelf = {this.onShelf} books={this.state.books.filter(
+                         <BookDeck onShelfChange = {this.onShelfChange} books={this.state.books.filter(
                              (book) => book.shelf === "wantToRead"
                          )}/>
                          <h3>Read</h3>
-                         <BookDeck onShelf = {this.onShelf} books={this.state.books.filter(
+                         <BookDeck onShelfChange = {this.onShelfChange} books={this.state.books.filter(
                              (book => book.shelf === "read")
                          )}/>
 
@@ -51,7 +61,7 @@ class  App extends React.Component {
                  </div>
              )} />
                 <Route path="/search" render={() => (
-                        <SearchBook onShelf={this.onShelf}/>
+                        <SearchBook onShelfChange={this.onShelfChange}/>
                 )} />
 
             </div>

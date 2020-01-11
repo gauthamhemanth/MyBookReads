@@ -1,6 +1,8 @@
 import React from 'react';
 import * as BooksAPI from '../BooksAPI';
 import BookItem from './BookItem';
+import { Link } from 'react-router-dom';
+
 
 class SearchBook extends React.Component {
     state = {
@@ -10,7 +12,7 @@ class SearchBook extends React.Component {
 
     updateQuery =(query) =>{
         this.setState (()=> ({
-            query: query.trim()
+            query: query
         }))
 
         if (query) {
@@ -26,12 +28,17 @@ class SearchBook extends React.Component {
     render(){
         return(
             <div>
-            <input type="text" placeholder="Search title"
-                   value={this.state.query} onChange={(event)=>this.updateQuery(event.target.value)} />
+            <div className='search-body'>
+
+                <Link to="/" className='back'> </Link>
+                <input type="text" placeholder="Search title" className='search-book'
+                       value={this.state.query} onChange={(event)=>this.updateQuery(event.target.value)} />
+            </div>
+
                 <div className="book-list">
                     <ol className="book-grid">
                         {this.state.newBooks.map(book => (
-                            <li><BookItem book={book} onShelf ={this.props.onShelf} /></li>
+                            <li><BookItem book={book} onShelfChange ={this.props.onShelfChange} /></li>
                         ))}
                     </ol>
                 </div>
