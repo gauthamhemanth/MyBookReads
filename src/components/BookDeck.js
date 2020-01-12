@@ -10,7 +10,7 @@ class BookDeck extends React.Component {
                 <ol className="book-grid">
                 {
                     this.props.books.map((book, index) =>{
-                        return <li key={index}><BookItem book={book} onShelfChange ={this.props.onShelfChange}/></li> })
+                        return <li key={index}><BookItem book={book} booksList ={this.props.booksList} onShelfChange ={this.props.onShelfChange}/></li> })
                 }
                 </ol>
             </div>

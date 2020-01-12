@@ -37,8 +37,8 @@ class SearchBook extends React.Component {
 
                 <div className="book-list">
                     <ol className="book-grid">
-                        {this.state.newBooks.map(book => (
-                            <li><BookItem book={book} onShelfChange ={this.props.onShelfChange} /></li>
+                        {this.state.newBooks.map((book, index) => (
+                            <li key={index}><BookItem book={book} booksList ={this.props.booksList} onShelfChange ={this.props.onShelfChange} /></li>
                         ))}
                     </ol>
                 </div>
