@@ -4,20 +4,21 @@ import nobookcover from '../images/nobookcover.png';
 
 class BookItem extends React.Component {
 
-handleShelfValue = (booksList, book) =>{
+    /*handleShelfValue = (booksList, book) =>{
+        console.log(booksList);
+         for(let bookItem of booksList){
 
-    for(let bookItem of booksList){
+             if(bookItem.id === book.id){
+                 book.shelf = bookItem.shelf;
+                 console.log(typeof(book.shelf));
+             } else if(typeof(book.shelf) === 'undefined'){
+                 book.shelf ='none';
+             }
+         }
 
-        if(bookItem.id === book.id ){
-            book.shelf = bookItem.shelf;
-        } else if(typeof(book.shelf) === 'undefined') {
-            book.shelf = 'none'
-        }
-    }
-    return book.shelf;
+        return book.shelf;
 
-
-};
+    };*/
 
     render(){
         const coverImg = this.props.book.imageLinks && this.props.book.imageLinks.thumbnail ? this.props.book.imageLinks.thumbnail : nobookcover;
@@ -27,8 +28,9 @@ handleShelfValue = (booksList, book) =>{
 
                 <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${coverImg})` }}></div>
                 <div className="book-shelf-changer" >
+
                     <select  onChange={(e) => {this.props.onShelfChange(this.props.book,e.target.value)}}
-                             defaultValue={this.handleShelfValue(this.props.booksList, this.props.book)}>
+                             defaultValue={this.props.book.shelf}>
                         <option value="change" disabled>
                             Move to...
                         </option>

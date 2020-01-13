@@ -8,12 +8,14 @@ import { Route } from 'react-router-dom';
 
 
 class  App extends React.Component {
+
     constructor(){
         super();
         this.state = {
             books: []
         }
         this.onShelfChange = this.onShelfChange.bind(this);
+
     }
 
     onShelfChange=(book, val) =>{
@@ -33,10 +35,12 @@ class  App extends React.Component {
       //
     }
 
+
+
+
+
     render() {
-        const  booksList  = this.state.books;
-
-
+        const booksList  = this.state.books;
         return (
             <div>
              <Route exact path="/" render={() => (
@@ -48,15 +52,15 @@ class  App extends React.Component {
                          </div>
 
                          <h3>Currently Reading </h3>
-                         <BookDeck onShelfChange = {this.onShelfChange} booksList ={booksList} books={this.state.books.filter(
+                         <BookDeck onShelfChange = {this.onShelfChange}   books={this.state.books.filter(
                              (book) => book.shelf === "currentlyReading"
                          )}/>
                          <h3>Want to Read</h3>
-                         <BookDeck onShelfChange = {this.onShelfChange} booksList ={booksList} books={this.state.books.filter(
+                         <BookDeck onShelfChange = {this.onShelfChange}   books={this.state.books.filter(
                              (book) => book.shelf === "wantToRead"
                          )}/>
                          <h3>Read</h3>
-                         <BookDeck onShelfChange = {this.onShelfChange} booksList ={booksList} books={this.state.books.filter(
+                         <BookDeck onShelfChange = {this.onShelfChange}   books={this.state.books.filter(
                              (book => book.shelf === "read")
                          )}/>
 
@@ -64,7 +68,7 @@ class  App extends React.Component {
                  </div>
              )} />
                 <Route path="/search" render={() => (
-                        <SearchBook booksList ={booksList} onShelfChange={this.onShelfChange}/>
+                        <SearchBook booksList ={booksList}  onShelfChange={this.onShelfChange}/>
                 )} />
 
             </div>

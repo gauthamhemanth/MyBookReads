@@ -1,7 +1,8 @@
 import React from 'react';
 import * as BooksAPI from '../BooksAPI';
-import BookItem from './BookItem';
+
 import { Link } from 'react-router-dom';
+import BookDeck from "./BookDeck";
 
 
 class SearchBook extends React.Component {
@@ -10,38 +11,59 @@ class SearchBook extends React.Component {
         newBooks: []
     }
 
-    updateQuery =(query) =>{
+    updateQuery =(query, myBooks) =>{
         this.setState (()=> ({
             query: query
         }))
 
         if (query) {
+
+        // logic to maintain shelf value of book item in Search page & main page in sync
+        // logic working for search Terms like -"satire", "poetry" - not working for terms like "art" "react"
             BooksAPI.search(query.trim(), 20).then(books => {
-                books.length > 0
-                    ? this.setState({ newBooks: books })
+               const newBookList= books.map((book) => {
+                   const myBook = myBooks.filter((myBook) => (myBook.id === book.id))[0]
+                   book.shelf = myBook ? myBook.shelf : 'none'
+                   return book
+               })
+                console.log(newBookList);
+                newBookList.length > 0
+                    ? this.setState({ newBooks: newBookList })
                     : this.setState({ newBooks: [] });
             });
 
         } else this.setState({ newBooks: []});
 
     }
+
+
+
     render(){
+
         return(
             <div>
             <div className='search-body'>
 
                 <Link to="/" className='back'> </Link>
                 <input type="text" placeholder="Search title" className='search-book'
-                       value={this.state.query} onChange={(event)=>this.updateQuery(event.target.value)} />
+                       value={this.state.query} onChange={(event)=>this.updateQuery(event.target.value, this.props.booksList)} />
             </div>
 
-                <div className="book-list">
+            <BookDeck
+             books={this.state.newBooks}
+             onShelfChange ={this.props.onShelfChange}
+            />
+
+
+               {/* <div className="book-list">
                     <ol className="book-grid">
-                        {this.state.newBooks.map((book, index) => (
-                            <li key={index}><BookItem book={book} booksList ={this.props.booksList} onShelfChange ={this.props.onShelfChange} /></li>
+
+                        {this.state.newBooks.map((book, index) =>  (
+
+                            <li key={index}><BookItem book={book} booksList ={this.props.booksList}  onShelfChange ={this.props.onShelfChange} /></li>
                         ))}
                     </ol>
-                </div>
+                </div>*/}
             </div>
         )
     }
