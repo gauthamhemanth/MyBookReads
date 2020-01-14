@@ -3,23 +3,7 @@ import nobookcover from '../images/nobookcover.png';
 
 
 class BookItem extends React.Component {
-
-    /*handleShelfValue = (booksList, book) =>{
-        console.log(booksList);
-         for(let bookItem of booksList){
-
-             if(bookItem.id === book.id){
-                 book.shelf = bookItem.shelf;
-                 console.log(typeof(book.shelf));
-             } else if(typeof(book.shelf) === 'undefined'){
-                 book.shelf ='none';
-             }
-         }
-
-        return book.shelf;
-
-    };*/
-
+    
     render(){
         const coverImg = this.props.book.imageLinks && this.props.book.imageLinks.thumbnail ? this.props.book.imageLinks.thumbnail : nobookcover;
         const title = this.props.book.title ? this.props.book.title : 'No title available';
