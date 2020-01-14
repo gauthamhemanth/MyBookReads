@@ -30,7 +30,7 @@ class BookItem extends React.Component {
                 <div className="book-shelf-changer" >
 
                     <select  onChange={(e) => {this.props.onShelfChange(this.props.book,e.target.value)}}
-                             defaultValue={this.props.book.shelf}>
+                             value={this.props.book.shelf}>
                         <option value="change" disabled>
                             Move to...
                         </option>

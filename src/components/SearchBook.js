@@ -19,7 +19,7 @@ class SearchBook extends React.Component {
         if (query) {
 
         // logic to maintain shelf value of book item in Search page & main page in sync
-        // logic working for search Terms like -"satire", "poetry" - not working for terms like "art" "react"
+
             BooksAPI.search(query.trim(), 20).then(books => {
                const newBookList= books.map((book) => {
                    const myBook = myBooks.filter((myBook) => (myBook.id === book.id))[0]
